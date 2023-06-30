@@ -1,0 +1,26 @@
+Package: VARim
+Title: Time series imputation using VAR-IM
+Version: 0.0.0.9000
+Authors@R: 
+    person("Muhammad Edy", "Rizal", , "edyrizalmuh@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0009-0009-7407-1059"))
+Description: VARim imputes missing data in multivariate time series data based on Vector Autoregression Imputation Method (VAR-IM). The package can also be used for data with seasonality.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Suggests: 
+    testthat (>= 3.0.0),
+    roxygen2
+Config/testthat/edition: 3
+Depends: 
+    R (>= 2.10)
+LazyData: true
+Imports: 
+    forecast,
+    imputeTS,
+    tibble,
+    tsDyn,
+    tseries,
+    vars,
+    utils
