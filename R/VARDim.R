@@ -113,8 +113,6 @@ VARDim <- function(miss_data, d, ic = "AIC", min_norm = 0.05, max_iter = 10,
   miss_index = which(is.na(miss_data), arr.ind = TRUE)
   y_init_lv = init_imp(miss_data, init_method = init_method)
   y_init = diff(y_init_lv, differences = d)
-  miss_index_d = miss_index
-  miss_index_d[,"row"] = miss_index_d[,"row"] - d
   lag_var =
     suppressWarnings(
       vars::VARselect(
@@ -123,6 +121,11 @@ VARDim <- function(miss_data, d, ic = "AIC", min_norm = 0.05, max_iter = 10,
         lag.max = max_lag,
       )$selection[paste0(ic,"(n)")]
     )
+  miss_index_d = miss_index
+  miss_index_d[,"row"] = miss_index_d[,"row"] - d
+  # prevent error for data with missing data in early observation
+  miss_index_d = miss_index_d[miss_index_d[ , "row"] > lag_var + d, ]
+  
   all_stat = is_all_stationary(y_init)
   coef_norm = Inf
   coef_prev = 0
